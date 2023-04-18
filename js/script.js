@@ -72,6 +72,7 @@ function getMonitoring(){
 
 function listMonitoring(data){
     console.log(data);
+    monitor_list.innerHTML = `<ul id="monitor_list"></ul>`;
 
     for (const value of data) {
         const monitoringLI = document.createElement('li');
@@ -157,8 +158,8 @@ control_button.addEventListener("click", () =>{
         if(update == false){
             myFetch(`${url}/control`, "POST", {
                 control_name: control_name.value,
-                control_pin: control_pin.value,
-                control_value: control_value.value,
+                control_pin: parseInt(control_pin.value),
+                control_value: parseInt(control_value.value),
             }).then(res => console.log(res))
             alert("Create data successfully");
         }
@@ -166,8 +167,8 @@ control_button.addEventListener("click", () =>{
         if(update == true){
             myFetch(`${url}/control/${update_control_id}`, "PUT", {
                 control_name: control_name.value,
-                control_pin: control_pin.value,
-                control_value: control_value.value,
+                control_pin: parseInt(control_pin.value),
+                control_value: parseInt(control_value.value),
             }).then(res => console.log(res))
             alert("Update data successfully");
         }
@@ -229,4 +230,4 @@ function controlStatus(value, id){
 }
 
 getControl();
-getMonitoring();
+setInterval(getMonitoring, 3000);
